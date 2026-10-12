@@ -52,7 +52,7 @@ export default function Hero() {
             </Link>
 
             <Link
-              href="/about"
+              href="/experiences"
               className="border-b border-white/60 pb-2 text-sm text-white transition-colors hover:border-amber-200 hover:text-amber-200"
             >
               Our story

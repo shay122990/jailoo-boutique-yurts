@@ -1,29 +1,38 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./_styles/globals.css";
+import { Marcellus, Manrope } from "next/font/google";
+import "../app/_styles/globals.css";
+import Navbar from "./_components/Navbar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const marcellus = Marcellus({
+  variable: "--heading-font",
   subsets: ["latin"],
+  weight: "400",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const manrope = Manrope({
+  variable: "--body-font",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Jailoo",
-  description: "Luxury yurt stays",
+  title: "Jailoo | Boutique Mountain Retreats in Kyrgyzstan",
+  description:
+    "Discover the beauty of Kyrgyzstan with Jailoo. Experience boutique yurt stays, breathtaking mountain landscapes, and authentic nomadic hospitality.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en">
+      <body
+        className={`${marcellus.variable} ${manrope.variable} flex min-h-screen flex-col`}
+      >
+        <Navbar />
+        <main>{children}</main>
+      </body>
     </html>
   );
 }
