@@ -11,6 +11,7 @@
     "seed:yurts": "tsx src/scripts/seed-yurts.ts"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.104.2",
     "dotenv": "^18.0.7",
     "firebase": "^13.0.0",
     "next": "16.3.5",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Marcellus, Manrope } from "next/font/google";
 import "../app/_styles/globals.css";
 import Navbar from "./_components/Navbar";
+import Providers from "./providers";
 
 const marcellus = Marcellus({
   variable: "--heading-font",
@@ -30,8 +31,10 @@ export default function RootLayout({
       <body
         className={`${marcellus.variable} ${manrope.variable} flex min-h-screen flex-col`}
       >
-        <Navbar />
-        <main>{children}</main>
+        <Providers>
+          <Navbar />
+          <main>{children}</main>
+        </Providers>
       </body>
     </html>
   );
