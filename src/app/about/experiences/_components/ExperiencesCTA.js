@@ -7,7 +7,7 @@ export default function ExperiencesCTA() {
         Your journey begins here
       </p>
 
-      <h2 className="font-marcellus text-3xl md:text-5xl">
+      <h2 className="font-marcellus text-3xl md:text-5xl text-amber-700">
         Make your stay unforgettable.
       </h2>
 

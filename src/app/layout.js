@@ -1,13 +1,11 @@
-import type { Metadata } from "next";
-import { Marcellus, Manrope } from "next/font/google";
+import { Lora, Manrope } from "next/font/google";
 import "../app/_styles/globals.css";
 import Navbar from "./_components/Navbar";
-import Providers from "./providers";
 
-const marcellus = Marcellus({
+const lora = Lora({
   variable: "--heading-font",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600"],
 });
 
 const manrope = Manrope({
@@ -15,26 +13,20 @@ const manrope = Manrope({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Jailoo | Boutique Mountain Retreats in Kyrgyzstan",
   description:
     "Discover the beauty of Kyrgyzstan with Jailoo. Experience boutique yurt stays, breathtaking mountain landscapes, and authentic nomadic hospitality.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${marcellus.variable} ${manrope.variable} flex min-h-screen flex-col`}
+        className={`${lora.variable} ${manrope.variable} flex min-h-screen flex-col`}
       >
-        <Providers>
-          <Navbar />
-          <main>{children}</main>
-        </Providers>
+        <Navbar />
+        <main>{children}</main>
       </body>
     </html>
   );
