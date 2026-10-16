@@ -1,20 +1,18 @@
-import { Lora, Manrope } from "next/font/google";
+import { Montserrat, Manrope } from "next/font/google";
 import "../app/_styles/globals.css";
-import Navbar from "./_components/Navbar";
+import Header from "./_components/Header";
 
-const lora = Lora({
+const mont = Montserrat({
   variable: "--heading-font",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
 });
 
-const manrope = Manrope({
-  variable: "--body-font",
-  subsets: ["latin"],
-});
-
 export const metadata = {
-  title: "Jailoo | Boutique Mountain Retreats in Kyrgyzstan",
+  title: {
+    template: "%s - Jailoo",
+    default: "Jailoo | Boutique Mountain Retreats in Kyrgyzstan",
+  },
   description:
     "Discover the beauty of Kyrgyzstan with Jailoo. Experience boutique yurt stays, breathtaking mountain landscapes, and authentic nomadic hospitality.",
 };
@@ -23,10 +21,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${lora.variable} ${manrope.variable} flex min-h-screen flex-col`}
+        className={` bg-plum text-pink ${mont.variable} antialiased flex min-h-screen flex-col relative`}
       >
-        <Navbar />
-        <main>{children}</main>
+        <Header />
+        <div className="flex-1 px-8 py-12 grid w-full">
+          <main className="max-w-7xl mx-auto w-full">{children}</main>
+        </div>
       </body>
     </html>
   );

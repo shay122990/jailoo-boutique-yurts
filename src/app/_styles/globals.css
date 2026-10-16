@@ -1,36 +1,35 @@
 @import "tailwindcss";
 
-:root {
-  --background: #252017;
-  --foreground: #faf8f3;
-  --accent: #b39257;
+@theme {
+  --color-plum: rgb(34, 0, 15);
+  --color-bg: rgb(26, 34, 31);
+  --color-purple: #80426e;
+
+  --color-peach: #f2a67b;
+  --color-gold: #ffd38b;
+
+  --color-salmon: #de7272;
+  --color-red: #c40c0c;
+  --color-yellow: #ffd41d;
+
+  --color-teal: #287a74;
+  --color-aqua: #55a9a0;
+
+  --color-pink: #f6e2e9;
 }
 
 * {
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--body-font), sans-serif;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--heading-font), serif;
-  font-weight: 400;
-}
-
 a {
   text-decoration: none;
 }
 
+body {
+  background-color: var(--color-pink);
+  color: var(--color-plum);
+}
 button,
 input,
 textarea,
