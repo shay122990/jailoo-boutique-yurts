@@ -1,4 +1,5 @@
 import { eachDayOfInterval } from "date-fns";
+import { supabase } from "./supabase";
 
 /////////////
 // GET
@@ -31,20 +32,19 @@ export async function getYurtPrice(id) {
   return data;
 }
 
-export const getYurts = async function () {
+export async function getYurts() {
   const { data, error } = await supabase
     .from("yurts")
-    .select("id, name, maxCapacity, regularPrice, discount, image")
+    .select("*")
     .order("name");
 
   if (error) {
-    console.error(error);
-    throw new Error("Cabins could not be loaded");
+    console.error("Could not fetch yurts:", error.message);
+    throw new Error("Yurts could not be loaded");
   }
 
   return data;
-};
-
+}
 // Guests are uniquely identified by their email address
 export async function getGuest(email) {
   const { data, error } = await supabase
@@ -217,5 +217,20 @@ export async function deleteBooking(id) {
     console.error(error);
     throw new Error("Booking could not be deleted");
   }
+  return data;
+}
+
+// GET EXPERIENCES
+export async function getExperiences() {
+  const { data, error } = await supabase
+    .from("experiences")
+    .select("*")
+    .order("id");
+
+  if (error) {
+    console.error("Could not fetch experiences:", error.message);
+    throw new Error("Experiences could not be loaded");
+  }
+
   return data;
 }
