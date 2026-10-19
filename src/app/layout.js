@@ -1,5 +1,5 @@
-import { Montserrat, Manrope } from "next/font/google";
-import "../app/_styles/globals.css";
+import { Montserrat } from "next/font/google";
+import "./_styles/globals.css";
 import Header from "./_components/Header";
 
 const mont = Montserrat({
