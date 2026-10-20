@@ -1,15 +1,13 @@
 import Navigation from "./Navigation";
 import Logo from "./Logo";
 
-function Header() {
+export default function Header() {
   return (
-    <header className="border-b border-primary-900 px-8 py-5">
-      <div className="flex justify-between items-center max-w-7xl mx-auto">
+    <header className="relative z-20 border-b border-primary-900/30 px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
         <Logo />
         <Navigation />
       </div>
     </header>
   );
 }
-
-export default Header;
