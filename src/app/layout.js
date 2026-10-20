@@ -21,12 +21,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={` bg-plum text-pink ${mont.variable} antialiased flex min-h-screen flex-col relative`}
+        className={`${mont.variable} flex min-h-screen flex-col bg-plum text-pink antialiased`}
       >
         <Header />
-        <div className="flex-1 px-8 py-12 grid w-full">
-          <main className="max-w-7xl mx-auto w-full">{children}</main>
-        </div>
+        {children}
       </body>
     </html>
   );

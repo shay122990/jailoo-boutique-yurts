@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Navigation() {
   return (
     <nav className="z-10 text-xl">
-      <ul className="flex gap-16 items-center">
+      <ul className="flex gap-16 items-center text-white">
         <li>
           <Link href="/yurts" className="hover:text transition-colors">
             Yurts
