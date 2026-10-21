@@ -1,14 +1,19 @@
-import Link from "next/link";
+import AboutHero from "./_components/AboutHero.js";
+import AboutIntro from "./_components/AboutIntro.js";
+import AboutStory from "./_components/AboutStory.js";
 
 export const metadata = {
-  title: "About",
+  title: "About | Jailoo",
+  description:
+    "Discover Jailoo, a mountain retreat inspired by the landscapes and nomadic heritage of Kyrgyzstan.",
 };
 
 export default function About() {
   return (
-    <div>
-      <h1>about us</h1>
-      <Link href="/about/experiences">Explore Experiences</Link>
-    </div>
+    <main>
+      <AboutHero />
+      <AboutIntro />
+      <AboutStory />
+    </main>
   );
 }

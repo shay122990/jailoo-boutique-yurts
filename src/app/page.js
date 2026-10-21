@@ -24,7 +24,7 @@ export default function Home() {
 
         <Link
           href="/yurts"
-          className="bg-plum px-8 py-6 text-lg font-semibold text-white transition-all hover:bg-salmon"
+          className="bg-plum px-8 py-6 text-lg font-semibold text-white transition-all hover:bg-pink hover:text-plum"
         >
           Explore luxury yurts
         </Link>

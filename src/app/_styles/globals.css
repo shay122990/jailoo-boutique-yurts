@@ -27,7 +27,7 @@ a {
 }
 
 body {
-  background-color: var(--color-pink);
+  background-color: rgb(251, 242, 246);
   color: var(--color-plum);
 }
 button,

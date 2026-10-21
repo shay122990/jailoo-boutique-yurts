@@ -2,12 +2,12 @@ import Link from "next/link";
 
 export default function ExperiencesCTA() {
   return (
-    <section className="bg-[#eae7dc] px-6 py-20 text-center md:py-24">
+    <section className="bg-pink px-6 py-20 text-center md:py-24">
       <p className="mb-4 text-xs uppercase tracking-[0.3em] text-[#7c8067]">
         Your journey begins here
       </p>
 
-      <h2 className="font-marcellus text-3xl md:text-5xl text-amber-700">
+      <h2 className="font-marcellus text-3xl md:text-5xl text-plum">
         Make your stay unforgettable.
       </h2>
 
@@ -18,7 +18,7 @@ export default function ExperiencesCTA() {
 
       <Link
         href="/contact"
-        className="mt-8 inline-flex bg-[#414938] px-8 py-4 text-xs uppercase tracking-[0.2em] text-white transition-colors hover:bg-[#30372a]"
+        className="mt-8 inline-flex bg-plum px-8 py-4 text-xs uppercase tracking-[0.2em] text-white transition-colors hover:bg-pink hover:text-plum"
       >
         Plan your experience
       </Link>
