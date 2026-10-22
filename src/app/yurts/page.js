@@ -1,4 +1,4 @@
-import { getYurts } from "@/_lib/data-service";
+import { getYurts } from "../../_lib/data-service";
 
 export const metadata = {
   title: "Yurts",
