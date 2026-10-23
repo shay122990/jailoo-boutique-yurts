@@ -34,3 +34,32 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+TODO
+
+2. Card component
+3. Loading and suspense for yurts
+4. single experience page
+5. single yurt page
+6. dynamic metadata export async function generateMetadata({ params }) {
+   const { cabinId } = await params;
+
+const { name } = await getCabin(cabinId);
+
+return {
+title: `Cabin ${name}`,
+};
+} 7. error handling and boundary
+
+8. not found
+
+9. create storage bucket for yurt and experiences images update sql
+
+10. make dynamic routes static export async function generateStaticParams() {
+    const cabins = await getCabins();
+    const ids = cabins.map((cabin) => ({ cabinId: String(cabin.id) }));
+    return ids;
+    }
+11. fix next.config
+12. optimize images for static export
+13. implement partial pre-rendering (https://nextjs.org/docs/15/app/getting-started/partial-prerendering)

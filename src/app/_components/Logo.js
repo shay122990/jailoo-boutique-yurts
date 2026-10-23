@@ -17,6 +17,7 @@ function Logo() {
         src={logo}
         alt="Jailoo logo"
         style={{ width: "80px", height: "auto" }}
+        loading="eager"
       />
     </Link>
   );

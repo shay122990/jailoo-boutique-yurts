@@ -1,4 +1,4 @@
-import ContactHero from "./_components/ContactHero";
+import PageHero from "../_components/PageHero";
 import ContactSection from "./_components/ContactSection";
 
 export const metadata = {
@@ -10,7 +10,19 @@ export const metadata = {
 export default function Contact() {
   return (
     <main>
-      <ContactHero />
+      <PageHero
+        image="/contact.jpg"
+        imageAlt="The peaceful mountain landscapes of Kyrgyzstan"
+        eyebrow="We'd love to hear from you"
+        title={
+          <>
+            Your Journey
+            <br />
+            Starts Here
+          </>
+        }
+        description="Have a question, dreaming of a mountain escape, or ready to plan something unforgettable? We are here to help."
+      />
       <ContactSection />
     </main>
   );

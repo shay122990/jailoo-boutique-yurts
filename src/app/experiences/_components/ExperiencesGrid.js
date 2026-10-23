@@ -1,7 +1,10 @@
+import { getExperiences } from "../../../_lib/data-service";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ExperiencesGrid({ experiences }) {
+export default async function ExperiencesGrid() {
+  const experiences = await getExperiences();
+
   return (
     <section className="mx-auto max-w-7xl px-6 pb-24 md:px-10">
       <div className="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">

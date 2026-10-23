@@ -1,7 +1,8 @@
-import { getExperiences } from "../../_lib/data-service";
-import ExperiencesHero from "./_components/ExperiencesHero";
+import PageHero from "../_components/PageHero";
 import ExperiencesGrid from "./_components/ExperiencesGrid";
 import ExperiencesCTA from "./_components/ExperiencesCTA";
+import { Suspense } from "react";
+import Spinner from "../_components/Spinner";
 
 export const metadata = {
   title: "Experiences | Jailoo",
@@ -10,12 +11,26 @@ export const metadata = {
 };
 
 export default async function Experiences() {
-  const experiences = await getExperiences();
-
   return (
     <main className="flex flex-col gap-14">
-      <ExperiencesHero />
-      <ExperiencesGrid experiences={experiences} />
+      <PageHero
+        image="/experiences-hero.jpg"
+        imageAlt="Traditional Kyrgyz yurt surrounded by mountains"
+        eyebrow="Discover the spirit of Kyrgyzstan"
+        title={
+          <>
+            Experiences
+            <br />
+            Beyond the Ordinary
+          </>
+        }
+        description="From horseback journeys across alpine meadows to quiet evenings
+          beneath the stars, discover a different way to experience the
+          mountains."
+      />
+      <Suspense fallback={<Spinner />}>
+        <ExperiencesGrid />
+      </Suspense>
       <ExperiencesCTA />
     </main>
   );
