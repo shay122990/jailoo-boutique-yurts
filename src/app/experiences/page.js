@@ -10,6 +10,9 @@ export const metadata = {
     "Discover mountain adventures, cultural encounters, and unforgettable experiences in Kyrgyzstan.",
 };
 
+// refresh data every day - for prod at route level
+// export const revalidate = 86400;
+
 export default async function Experiences() {
   return (
     <main className="flex flex-col gap-14">

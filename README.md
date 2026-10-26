@@ -37,11 +37,11 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 TODO
 
-2. Card component
-3. Loading and suspense for yurts
-4. single experience page
-5. single yurt page
-6. dynamic metadata export async function generateMetadata({ params }) {
+1. add images to supabase bucket
+2. Loading and suspense for yurts
+3. single experience page
+4. single yurt page
+5. dynamic metadata export async function generateMetadata({ params }) {
    const { cabinId } = await params;
 
 const { name } = await getCabin(cabinId);
