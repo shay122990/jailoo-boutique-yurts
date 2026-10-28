@@ -38,14 +38,6 @@ function Filter() {
       >
         4&mdash;7 guests
       </Button>
-
-      <Button
-        filter="large"
-        handleFilter={handleFilter}
-        activeFilter={activeFilter}
-      >
-        8&mdash;12 guests
-      </Button>
     </div>
   );
 }

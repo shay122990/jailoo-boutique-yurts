@@ -1,18 +1,28 @@
-import { getYurts } from "../../_lib/data-service";
-import YurtCard from "./_components/YurtCard";
+import { Suspense } from "react";
+import Filter from "../_components/Filter";
+import Spinner from "../_components/Spinner";
+import YurtList from "./_components/YurtsList";
+import YurtsIntro from "./_components/YurtsIntro";
 
 export const metadata = {
   title: "Yurts",
 };
 
-export default async function Yurts() {
-  const yurts = await getYurts();
+export default async function Yurts({ searchParams }) {
+  const params = await searchParams;
+  const filter = params?.capacity ?? "all";
 
   return (
-    <div className="grid gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-      {yurts.map((yurt) => (
-        <YurtCard key={yurt.id} yurt={yurt} />
-      ))}
+    <div className="w-full pt-4 sm:px-6 sm:py-16 flex flex-col justify-center">
+      <YurtsIntro />
+
+      <div className="mx-auto mb-8 flex w-full justify-end">
+        <Filter />
+      </div>
+
+      <Suspense fallback={<Spinner />} key={filter}>
+        <YurtList filter={filter} />
+      </Suspense>
     </div>
   );
 }

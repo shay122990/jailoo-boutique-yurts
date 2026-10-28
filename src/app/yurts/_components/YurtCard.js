@@ -15,30 +15,39 @@ export default function YurtCard({ yurt }) {
   } = yurt;
 
   return (
-    <article className="group">
-      <div className="relative mb-5 aspect-4/5 overflow-hidden bg-[#e5e1d6]">
+    <article className="group w-full">
+      {/* Image */}
+      <div className="relative mb-3 aspect-4/3 overflow-hidden bg-[#e5e1d6] sm:mb-5 sm:aspect-[4/5]">
         <Image
           src={image}
           alt={name}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
       </div>
 
-      <div className="flex items-center justify-between gap-3">
-        <span className="text-[10px] uppercase tracking-[0.2em] text-[#7c8067]">
+      {/* Type and location */}
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-[9px] uppercase tracking-widest text-[#7c8067] sm:text-[10px] sm:tracking-[0.2em]">
           {type}
         </span>
 
-        <span className="text-xs text-[#77786f]">{location}</span>
+        <span className="truncate text-[10px] text-[#77786f] sm:text-xs">
+          {location}
+        </span>
       </div>
 
-      <h3 className="mt-3 font-heading text-2xl">{name}</h3>
+      {/* Name */}
+      <h3 className="mt-2 font-heading text-lg sm:mt-3 sm:text-2xl">{name}</h3>
 
-      <p className="mt-3 text-sm leading-7 text-[#686a60]">{description}</p>
+      {/* Description */}
+      <p className="mt-2 text-xs leading-5 text-[#686a60] sm:mt-3 sm:text-sm sm:leading-7">
+        {description}
+      </p>
 
-      <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#686a60]">
+      {/* Details */}
+      <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-[#686a60] sm:mt-4 sm:gap-x-5 sm:text-xs">
         <span>
           {capacity} {capacity === 1 ? "guest" : "guests"}
         </span>
@@ -48,17 +57,20 @@ export default function YurtCard({ yurt }) {
         </span>
       </div>
 
-      <div className="mt-5 flex items-center justify-between gap-3">
-        <p className="text-sm text-[#686a60]">
-          <span className="font-heading text-2xl text-[#292b24]">{price}</span>{" "}
-          <span className="text-xs">/ night</span>
+      {/* Price and link */}
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-2 sm:mt-5 sm:gap-3">
+        <p className="text-xs text-[#686a60]">
+          <span className="font-heading text-xl text-[#292b24] sm:text-2xl">
+            {price}
+          </span>{" "}
+          <span className="text-[10px] sm:text-xs">/ night</span>
         </p>
 
         <Link
           href={`/yurts/${slug}`}
-          className="inline-flex items-center gap-2 border-b border-[#858772] pb-1 text-xs uppercase tracking-[0.15em] transition-colors hover:text-[#858772]"
+          className="inline-flex items-center gap-1 border-b border-[#858772] pb-1 text-[9px] uppercase tracking-wider transition-colors hover:text-[#858772] sm:gap-2 sm:text-xs sm:tracking-[0.15em]"
         >
-          Explore yurt
+          Explore <span className="hidden sm:inline">yurt</span>
           <span aria-hidden="true">↗</span>
         </Link>
       </div>
