@@ -5,15 +5,15 @@ import { notFound } from "next/navigation";
 /////////////
 // GET
 
-export async function getYurt(id) {
+export async function getYurt(slug) {
   const { data, error } = await supabase
     .from("yurts")
     .select("*")
-    .eq("id", id)
+    .eq("slug", slug)
     .single();
 
   if (error) {
-    console.error(error);
+    console.error("Error fetching yurt:", error);
     notFound();
   }
 
