@@ -51,7 +51,6 @@ export default function ContactSection() {
           </div>
         </div>
 
-        {/* Enquiry form */}
         <div className="bg-white p-6 shadow-sm sm:p-10 md:p-12">
           <div className="mb-8">
             <p className="mb-3 text-xs uppercase tracking-[0.25em] text-[#7c8067]">
