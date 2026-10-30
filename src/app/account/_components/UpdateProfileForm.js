@@ -1,51 +1,62 @@
 import Image from "next/image";
-import SelectCountry from "./SelectCountry";
 
 function UpdateProfileForm({ children }) {
   const countryFlag = "/pt.jpg";
 
+  const inputStyles =
+    "w-full rounded-md border border-[#e5cbd5] bg-[#fdf8fa] px-5 py-3 text-[#22000f] shadow-sm outline-none transition placeholder:text-[#9b858f] focus:border-[#80426e] focus:ring-2 focus:ring-[#80426e]/15 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400";
+
+  const labelStyles = "font-medium text-[#22000f]";
+
   return (
-    <form className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col">
+    <form className="flex flex-col gap-7 rounded-xl border border-[#f0e3e9] bg-white px-6 py-8 shadow-sm sm:px-10">
       <div className="space-y-2">
-        <label>Full name</label>
-        <input
-          disabled
-          className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
-        />
+        <label className={labelStyles}>Full name</label>
+        <input disabled placeholder="Your full name" className={inputStyles} />
       </div>
 
       <div className="space-y-2">
-        <label>Email address</label>
+        <label className={labelStyles}>Email address</label>
         <input
           disabled
-          className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
+          placeholder="Your email address"
+          className={inputStyles}
         />
       </div>
 
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <label htmlFor="nationality">Where are you from?</label>
+          <label htmlFor="nationality" className={labelStyles}>
+            Where are you from?
+          </label>
+
           <Image
             src={countryFlag}
             alt="Country flag"
-            className="h-5 rounded-sm"
-            width={50}
-            height={50}
+            className="h-5 w-auto rounded-sm"
+            width={30}
+            height={20}
           />
         </div>
+
         {children}
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="nationalID">National ID number</label>
+        <label htmlFor="nationalID" className={labelStyles}>
+          National ID number
+        </label>
+
         <input
           name="nationalID"
-          className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+          id="nationalID"
+          placeholder="Enter your ID number"
+          className={inputStyles}
         />
       </div>
 
-      <div className="flex justify-end items-center gap-6">
-        <button className="bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300">
+      <div className="flex justify-end border-t border-[#f0e3e9] pt-5">
+        <button className="rounded-md bg-[#f2a67b] px-7 py-3 font-semibold text-[#22000f] transition-all hover:bg-[#e99467] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80426e]">
           Update profile
         </button>
       </div>

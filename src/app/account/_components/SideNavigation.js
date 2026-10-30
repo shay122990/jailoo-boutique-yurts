@@ -8,6 +8,7 @@ import {
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import SignOutButton from "./SignOutButton";
 
 const navLinks = [
   {
@@ -31,12 +32,12 @@ function SideNavigation() {
   const pathname = usePathname();
 
   return (
-    <nav className="border-r border-primary-900">
+    <nav className="border-r border-plum pr-2">
       <ul className="flex flex-col gap-2 h-full text-lg">
         {navLinks.map((link) => (
           <li key={link.name}>
             <Link
-              className={`py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-primary-200 ${pathname === link.href ? "bg-gray-900" : ""}`}
+              className={`py-3 px-5 hover:bg-plum hover:text-white transition-colors flex items-center gap-4 font-semibold text-primary-200 ${pathname === link.href ? "bg-pink" : ""}`}
               href={link.href}
             >
               {link.icon}
@@ -45,7 +46,9 @@ function SideNavigation() {
           </li>
         ))}
 
-        <li className="mt-auto">{/* <SignOutButton /> */}</li>
+        <li className="mt-auto">
+          <SignOutButton />
+        </li>
       </ul>
     </nav>
   );
