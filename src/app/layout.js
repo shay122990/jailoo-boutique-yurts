@@ -1,6 +1,7 @@
 import { Montserrat } from "next/font/google";
 import "./_styles/globals.css";
 import Header from "./_components/Header";
+import { ReservationProvider } from "../_context/ReservationContext";
 
 const mont = Montserrat({
   variable: "--heading-font",
@@ -25,7 +26,9 @@ export default function RootLayout({ children }) {
       >
         <Header />
         <div className="flex-1 px-8 py-12 grid w-full">
-          <main className="max-w-7xl mx-auto w-full">{children}</main>
+          <main className="max-w-7xl mx-auto w-full">
+            <ReservationProvider>{children}</ReservationProvider>
+          </main>
         </div>
       </body>
     </html>

@@ -3,6 +3,7 @@ import Filter from "../_components/Filter";
 import Spinner from "../_components/Spinner";
 import YurtList from "./_components/YurtsList";
 import YurtsIntro from "./_components/YurtsIntro";
+import ReservationReminder from "../_components/ReservationReminder";
 
 export const metadata = {
   title: "Yurts",
@@ -22,6 +23,7 @@ export default async function Yurts({ searchParams }) {
 
       <Suspense fallback={<Spinner />} key={filter}>
         <YurtList filter={filter} />
+        <ReservationReminder />
       </Suspense>
     </div>
   );

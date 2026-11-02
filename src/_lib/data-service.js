@@ -94,41 +94,39 @@ export async function getBookings(guestId) {
 }
 
 export async function getBookedDatesByYurtId(yurtId) {
-  let today = new Date();
+  const today = new Date();
   today.setUTCHours(0, 0, 0, 0);
-  today = today.toISOString();
 
-  // Getting all bookings
   const { data, error } = await supabase
     .from("bookings")
-    .select("*")
+    .select("startDate, endDate")
     .eq("yurtId", yurtId)
-    .or(`startDate.gte.${today},status.eq.checked-in`);
+    .gte("endDate", today.toISOString().split("T")[0]);
 
   if (error) {
-    console.error(error);
+    console.error("Error fetching booked dates:", error);
     throw new Error("Bookings could not get loaded");
   }
 
-  // Converting to actual dates to be displayed in the date picker
-  const bookedDates = data
-    .map((booking) => {
-      return eachDayOfInterval({
+  return data
+    .map((booking) =>
+      eachDayOfInterval({
         start: new Date(booking.startDate),
         end: new Date(booking.endDate),
-      });
-    })
+      }),
+    )
     .flat();
-
-  return bookedDates;
 }
 
-export async function getSettings() {
-  const { data, error } = await supabase.from("settings").select("*").single();
+export async function getYurtSettings() {
+  const { data, error } = await supabase
+    .from("yurt_settings")
+    .select("*")
+    .single();
 
   if (error) {
-    console.error(error);
-    throw new Error("Settings could not be loaded");
+    console.error("Could not fetch yurt settings:", error);
+    throw new Error("Yurt settings could not be loaded");
   }
 
   return data;

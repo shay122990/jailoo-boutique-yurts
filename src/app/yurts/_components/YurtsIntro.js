@@ -10,6 +10,7 @@ export default function YurtsIntro() {
           fill
           sizes="100vw"
           className="scale-105 object-cover blur-[2px]"
+          loading="eager"
         />
 
         <div className="absolute inset-0 bg-[#faf9f6]/60" />
