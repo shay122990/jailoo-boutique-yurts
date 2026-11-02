@@ -1,40 +1,48 @@
 "use client";
+
 import { useReservation } from "../../_context/ReservationContext";
+import {
+  UserGroupIcon,
+  ClipboardDocumentListIcon,
+} from "@heroicons/react/24/outline";
 
 function ReservationForm({ yurt }) {
   const { range } = useReservation();
-  // CHANGE
   const { capacity } = yurt;
 
   return (
-    <div className="scale-[1.01]">
-      <div className="bg-primary-800 text-primary-300 px-16 py-2 flex justify-between items-center">
-        <p>Logged in as</p>
+    <div className="flex h-full min-h-155 flex-col overflow-hidden rounded-2xl border border-plum/15 bg-white shadow-sm">
+      {/* Header */}
+      <div className="flex items-center justify-between bg-plum px-8 py-5 sm:px-10">
+        <div>
+          <p className="text-xs uppercase tracking-[0.25em] text-peach">
+            Your reservation
+          </p>
+          <h3 className="mt-1 text-xl font-medium text-white">Guest details</h3>
+        </div>
 
-        {/* <div className='flex gap-4 items-center'>
-          <img
-            // Important to display google profile images
-            referrerPolicy='no-referrer'
-            className='h-8 rounded-full'
-            src={user.image}
-            alt={user.name}
-          />
-          <p>{user.name}</p>
-        </div> */}
+        <UserGroupIcon className="h-7 w-7 text-peach" strokeWidth={1.5} />
       </div>
 
-      <form className="bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col">
-        <div className="space-y-2">
-          <label htmlFor="numGuests">How many guests?</label>
+      {/* Form */}
+      <form className="flex flex-1 flex-col gap-7 p-8 sm:p-10">
+        {/* Guests */}
+        <div className="space-y-3">
+          <label
+            htmlFor="numGuests"
+            className="block text-sm font-semibold text-plum"
+          >
+            Number of guests
+          </label>
+
           <select
             name="numGuests"
             id="numGuests"
-            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+            className="w-full rounded-lg border border-plum/15 bg-pink/30 px-4 py-3.5 text-sm text-bg outline-none transition-colors focus:border-purple focus:ring-2 focus:ring-purple/15"
             required
           >
-            <option value="" key="">
-              Select number of guests...
-            </option>
+            <option value="">Select number of guests...</option>
+
             {Array.from({ length: capacity }, (_, i) => i + 1).map((x) => (
               <option value={x} key={x}>
                 {x} {x === 1 ? "guest" : "guests"}
@@ -43,22 +51,33 @@ function ReservationForm({ yurt }) {
           </select>
         </div>
 
-        <div className="space-y-2">
-          <label htmlFor="observations">
-            Anything we should know about your stay?
+        {/* Observations */}
+        <div className="space-y-3">
+          <label
+            htmlFor="observations"
+            className="block text-sm font-semibold text-plum"
+          >
+            Special requests
+            <span className="ml-2 font-normal text-bg/50">(Optional)</span>
           </label>
+
           <textarea
             name="observations"
             id="observations"
-            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
-            placeholder="Any pets, allergies, special requirements, etc.?"
+            rows={5}
+            className="w-full resize-none rounded-lg border border-plum/15 bg-pink/30 px-4 py-3.5 text-sm text-bg outline-none transition-colors placeholder:text-bg/40 focus:border-purple focus:ring-2 focus:ring-purple/15"
+            placeholder="Any pets, allergies, or special requirements?"
           />
         </div>
 
-        <div className="flex justify-end items-center gap-6">
-          <p className="text-primary-300 text-base">Start by selecting dates</p>
+        {/* Bottom */}
+        <div className="mt-auto flex flex-col gap-4 border-t border-plum/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-bg/60">Start by selecting your dates.</p>
 
-          <button className="bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300">
+          <button
+            type="submit"
+            className="rounded-lg bg-teal px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-aqua hover:text-plum disabled:cursor-not-allowed disabled:bg-bg/30 disabled:text-bg/50"
+          >
             Reserve now
           </button>
         </div>

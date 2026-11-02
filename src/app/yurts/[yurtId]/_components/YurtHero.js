@@ -1,4 +1,5 @@
 import Image from "next/image";
+import BackButton from "../../../_components/BackButton";
 
 function YurtHero({ yurt }) {
   return (
@@ -18,21 +19,19 @@ function YurtHero({ yurt }) {
         <p className="mb-4 text-xs uppercase tracking-[0.3em] text-white/80">
           {yurt.type} · {yurt.location}
         </p>
-
         <h1 className="max-w-3xl text-4xl font-light tracking-wide text-white sm:text-6xl md:text-7xl">
           {yurt.name}
         </h1>
-
         <p className="mt-5 max-w-xl text-base leading-7 text-white/90 md:text-lg">
           {yurt.description}
         </p>
-
-        <a
-          href="#details"
-          className="mt-8 inline-block border border-white/70 px-7 py-3 text-sm tracking-wide text-white transition hover:bg-white hover:text-[#34382e]"
-        >
-          Discover your stay
-        </a>
+        <div className=" mt-4">
+          <BackButton
+            location="/yurts"
+            text="Back to yurts"
+            className="mb-8 text-base font-medium py-4 px-4 bg-white"
+          />
+        </div>
       </div>
     </section>
   );

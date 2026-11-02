@@ -29,11 +29,15 @@ export default async function Page({ params }) {
 
       <YurtIntro yurt={yurt} />
 
-      <section>
-        <Suspense fallback={<Spinner />}>
-          <Reservation yurt={yurt} />
-        </Suspense>
-      </section>
+      <Suspense
+        fallback={
+          <div className="flex min-h-155 items-center justify-center">
+            <Spinner />
+          </div>
+        }
+      >
+        <Reservation yurt={yurt} />
+      </Suspense>
     </main>
   );
 }

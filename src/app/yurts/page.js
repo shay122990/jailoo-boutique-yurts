@@ -14,7 +14,7 @@ export default async function Yurts({ searchParams }) {
   const filter = params?.capacity ?? "all";
 
   return (
-    <div className="w-full pt-4 sm:px-6 sm:py-16 flex flex-col justify-center">
+    <div className="w-full flex flex-col justify-center">
       <YurtsIntro />
 
       <div className="mx-auto mb-8 flex w-full justify-end">
