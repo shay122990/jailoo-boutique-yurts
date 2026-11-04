@@ -7,12 +7,15 @@ import {
 
 import DateSelector from "./DateSelector";
 import ReservationForm from "./ReservationForm";
+import LoginMessage from "./LoginMessage";
+import { auth } from "../../_lib/auth";
 
 async function Reservation({ yurt }) {
   const [settings, bookedDates] = await Promise.all([
     getYurtSettings(),
     getBookedDatesByYurtId(yurt.id),
   ]);
+  const session = await auth();
 
   return (
     <section id="reservation" className="bg-pink/20 px-5 py-16 sm:px-8 ">
@@ -54,7 +57,11 @@ async function Reservation({ yurt }) {
             yurt={yurt}
           />
 
-          <ReservationForm yurt={yurt} />
+          {session?.user ? (
+            <ReservationForm yurt={yurt} user={session.user} />
+          ) : (
+            <LoginMessage />
+          )}
         </div>
 
         {/* Footer note */}

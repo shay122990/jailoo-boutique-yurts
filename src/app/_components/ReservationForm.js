@@ -1,12 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { useReservation } from "../../_context/ReservationContext";
 import {
   UserGroupIcon,
   ClipboardDocumentListIcon,
 } from "@heroicons/react/24/outline";
 
-function ReservationForm({ yurt }) {
+function ReservationForm({ yurt, user }) {
   const { range } = useReservation();
   const { capacity } = yurt;
 
@@ -18,15 +19,26 @@ function ReservationForm({ yurt }) {
           <p className="text-xs uppercase tracking-[0.25em] text-peach">
             Your reservation
           </p>
-          <h3 className="mt-1 text-xl font-medium text-white">Guest details</h3>
+          <div className="flex space-x-10 justify-between items-center">
+            <h3 className="mt-1 text-xl font-medium text-white">
+              Guest details
+            </h3>
+            <span className=" flex gap-2 mt-1 text-xl font-medium text-white">
+              <Image
+                src={user.image}
+                alt="user avatar"
+                width={30}
+                height={30}
+                className="rounded-full"
+              />
+              {user.name}
+            </span>
+          </div>
         </div>
-
-        <UserGroupIcon className="h-7 w-7 text-peach" strokeWidth={1.5} />
       </div>
 
       {/* Form */}
       <form className="flex flex-1 flex-col gap-7 p-8 sm:p-10">
-        {/* Guests */}
         <div className="space-y-3">
           <label
             htmlFor="numGuests"
@@ -51,7 +63,6 @@ function ReservationForm({ yurt }) {
           </select>
         </div>
 
-        {/* Observations */}
         <div className="space-y-3">
           <label
             htmlFor="observations"

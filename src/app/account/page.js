@@ -1,4 +1,3 @@
-import SignInButton from "../_components/SignInButton";
 import { auth } from "../../_lib/auth";
 import Image from "next/image";
 
@@ -8,16 +7,24 @@ export const metadata = {
 
 export default async function Page() {
   const session = await auth();
+
+  if (!session?.user) return null;
+
   return (
-    <h2 className="font-semibold text-2xl text-accent-400 mb-7">
-      <SignInButton />
-      <p>Welcome , {session.user.name}</p>
-      <Image
-        src={session.user.image}
-        alt={session.user.name}
-        width={60}
-        height={60}
-      />
-    </h2>
+    <div>
+      <h2 className="mb-7 text-2xl font-semibold text-accent-400">
+        Welcome, {session.user.name}
+      </h2>
+
+      {session.user.image && (
+        <Image
+          src={session.user.image}
+          alt={session.user.name ?? "Profile"}
+          width={60}
+          height={60}
+          className="rounded-full"
+        />
+      )}
+    </div>
   );
 }
