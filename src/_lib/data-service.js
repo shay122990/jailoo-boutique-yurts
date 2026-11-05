@@ -54,8 +54,9 @@ export async function getGuest(email) {
     .from("guests")
     .select("*")
     .eq("email", email)
-    .single();
+    .maybeSingle(); // in possibility that this is the first ever created guest
 
+  if (error) throw error;
   // No error here! We handle the possibility of no guest in the sign in callback
   return data;
 }

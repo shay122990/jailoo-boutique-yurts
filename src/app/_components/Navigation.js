@@ -19,7 +19,7 @@ export default function Navigation({ session }) {
   const linkColor = pathname === "/" ? "text-white" : "text-plum";
 
   const isLoggedIn = !!session?.user;
-  const accountHref = isLoggedIn ? "/account" : "/yurts";
+  const accountHref = isLoggedIn ? "/account" : "/login";
 
   return (
     <nav className="relative z-20 text-lg">
@@ -92,16 +92,6 @@ export default function Navigation({ session }) {
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-3 rounded-md px-4 py-3 transition-colors hover:bg-stone-100"
             >
-              {isLoggedIn && session.user.image && (
-                <Image
-                  src={session.user.image}
-                  alt={session.user.name ?? "Guest"}
-                  width={32}
-                  height={32}
-                  referrerPolicy="no-referrer"
-                  className="h-8 w-8 rounded-full object-cover"
-                />
-              )}
               Guest area
             </Link>
           </li>
