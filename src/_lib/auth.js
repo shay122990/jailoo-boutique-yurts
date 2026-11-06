@@ -19,9 +19,11 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
         return false;
       }
     },
-    async session({ session, user }) {
+
+    async session({ session }) {
       const guest = await getGuest(session.user.email);
-      session.user.guestId = guest.guestId;
+      session.user.guestId = guest.id;
+
       return session;
     },
   },

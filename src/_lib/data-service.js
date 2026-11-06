@@ -55,7 +55,8 @@ export async function getGuest(email) {
     .select("*")
     .eq("email", email)
     .maybeSingle(); // in possibility that this is the first ever created guest
-
+  console.log("Looking up email:", email);
+  console.log("Guest returned:", data);
   if (error) throw error;
   // No error here! We handle the possibility of no guest in the sign in callback
   return data;
