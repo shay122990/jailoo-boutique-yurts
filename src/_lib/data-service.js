@@ -55,8 +55,7 @@ export async function getGuest(email) {
     .select("*")
     .eq("email", email)
     .maybeSingle(); // in possibility that this is the first ever created guest
-  console.log("Looking up email:", email);
-  console.log("Guest returned:", data);
+
   if (error) throw error;
   // No error here! We handle the possibility of no guest in the sign in callback
   return data;
@@ -78,11 +77,22 @@ export async function getBooking(id) {
 }
 
 export async function getBookings(guestId) {
-  const { data, error, count } = await supabase
+  const { data, error } = await supabase
     .from("bookings")
-    //  also need data on the yurts as well.  ONLY take the data thats needed, in order to reduce downloaded data.
     .select(
-      "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)",
+      `
+      id,
+      created_at,
+      startDate,
+      endDate,
+      numNights,
+      numGuests,
+      totalPrice,
+      guestId,
+      yurtId,
+      status,
+      yurts(name, image)
+    `,
     )
     .eq("guestId", guestId)
     .order("startDate");
