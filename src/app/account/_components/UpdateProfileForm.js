@@ -1,4 +1,5 @@
 "use client";
+
 import { useFormStatus } from "react-dom";
 import { updateGuestProfile } from "../../../_lib/actions";
 
@@ -6,18 +7,21 @@ function UpdateProfileForm({ children, guest }) {
   const { fullName, email, nationalID, countryFlag } = guest;
 
   const inputStyles =
-    "w-full rounded-md border border-[#e5cbd5] bg-[#fdf8fa] px-5 py-3 text-[#22000f] shadow-sm outline-none transition placeholder:text-[#9b858f] focus:border-[#80426e] focus:ring-2 focus:ring-[#80426e]/15 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400";
+    "w-full rounded-md border border-pink bg-[#fdf8fa] px-4 py-3 text-plum shadow-sm outline-none transition placeholder:text-plum/40 focus:border-purple focus:ring-2 focus:ring-purple/15 disabled:cursor-not-allowed disabled:bg-pink/20 disabled:text-plum/50";
 
-  const labelStyles = "font-medium text-[#22000f]";
+  const labelStyles = "font-medium text-plum";
 
   return (
     <form
       action={updateGuestProfile}
-      className="flex flex-col gap-7 rounded-xl border border-[#f0e3e9] bg-white px-6 py-8 shadow-sm sm:px-10"
+      className="mx-auto flex w-full max-w-2xl flex-col gap-6 rounded-xl border border-pink bg-white p-4 shadow-sm sm:gap-7 sm:p-8 lg:p-10"
     >
       <div className="space-y-2">
-        <label className={labelStyles}>Full name</label>
+        <label htmlFor="fullName" className={labelStyles}>
+          Full name
+        </label>
         <input
+          id="fullName"
           defaultValue={fullName}
           name="fullName"
           disabled
@@ -27,8 +31,11 @@ function UpdateProfileForm({ children, guest }) {
       </div>
 
       <div className="space-y-2">
-        <label className={labelStyles}>Email address</label>
+        <label htmlFor="email" className={labelStyles}>
+          Email address
+        </label>
         <input
+          id="email"
           defaultValue={email}
           name="email"
           disabled
@@ -61,7 +68,7 @@ function UpdateProfileForm({ children, guest }) {
         />
       </div>
 
-      <div className="flex justify-end border-t border-[#f0e3e9] pt-5">
+      <div className="flex justify-end border-t border-pink pt-5">
         <Button />
       </div>
     </form>
@@ -70,13 +77,15 @@ function UpdateProfileForm({ children, guest }) {
 
 function Button() {
   const { pending } = useFormStatus();
+
   return (
     <button
       disabled={pending}
-      className="rounded-md bg-peach px-7 py-3 font-semibold text-[#22000f] transition-all hover:bg-[#e99467] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple"
+      className="w-full rounded-md bg-peach px-7 py-3 font-semibold text-plum transition-colors hover:bg-peach/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
     >
-      {pending ? "Updating" : "Update profile"}
+      {pending ? "Updating..." : "Update profile"}
     </button>
   );
 }
+
 export default UpdateProfileForm;
