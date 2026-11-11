@@ -2,6 +2,7 @@
 
 import { useFormStatus } from "react-dom";
 import { updateGuestProfile } from "../../../_lib/actions";
+import SubmitButton from "../../_components/SubmitButton";
 
 function UpdateProfileForm({ children, guest }) {
   const { fullName, email, nationalID, countryFlag } = guest;
@@ -69,22 +70,9 @@ function UpdateProfileForm({ children, guest }) {
       </div>
 
       <div className="flex justify-end border-t border-pink pt-5">
-        <Button />
+        <SubmitButton pendingLabel="Updating...">Update Profile</SubmitButton>
       </div>
     </form>
-  );
-}
-
-function Button() {
-  const { pending } = useFormStatus();
-
-  return (
-    <button
-      disabled={pending}
-      className="w-full rounded-md bg-peach px-7 py-3 font-semibold text-plum transition-colors hover:bg-peach/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
-    >
-      {pending ? "Updating..." : "Update profile"}
-    </button>
   );
 }
 

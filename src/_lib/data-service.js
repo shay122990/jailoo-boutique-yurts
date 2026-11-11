@@ -21,6 +21,21 @@ export async function getYurt(slug) {
   return data;
 }
 
+export async function getYurtById(id) {
+  const { data, error } = await supabase
+    .from("yurts")
+    .select("capacity")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error("Error fetching yurt:", error);
+    throw new Error("Yurt could not be loaded");
+  }
+
+  return data;
+}
+
 export async function getYurtPrice(id) {
   const { data, error } = await supabase
     .from("yurts")
@@ -62,7 +77,7 @@ export async function getGuest(email) {
 }
 
 export async function getBooking(id) {
-  const { data, error, count } = await supabase
+  const { data, error } = await supabase
     .from("bookings")
     .select("*")
     .eq("id", id)
