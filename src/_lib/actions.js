@@ -78,3 +78,43 @@ export async function deleteReservation(bookingId) {
   }
   revalidatePath("/account/reservations");
 }
+
+export async function updateReservation(formData) {
+  const bookingId = Number(formData.get("bookingId"));
+
+  // authentication check
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  // authorization
+  const guestBookings = await getBookings(session.user.guestId);
+  const guestBookingIds = guestBookings.map((booking) => booking.id);
+  if (!guestBookingIds.includes(bookingId))
+    throw new Error("You are not allowed to update  this booking");
+
+  //building update data
+  const updatedFields = {
+    numGuests: Number(formData.get("numGuests")),
+    observations: formData.get("observations").slice(0, 1000),
+  };
+
+  // mutation
+  const { error } = await supabase
+    .from("bookings")
+    .update(updatedFields)
+    .eq("id", bookingId)
+    .eq("guestId", session.user.guestId)
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not be updated");
+  }
+
+  // refresh data
+  revalidatePath("/account/reservations");
+  revalidatePath(`/account/reservations/edit/${bookingId}`);
+  // redirect
+  redirect("/account/reservations");
+}
