@@ -9,17 +9,22 @@ export const formatDistanceFromNow = (dateStr) =>
     addSuffix: true,
   }).replace("about ", "");
 
-function ReservationCard({ booking }) {
+function ReservationCard({ booking, onDelete }) {
   const {
     id,
+    guestId,
     startDate,
     endDate,
     numNights,
     totalPrice,
     numGuests,
+    status,
     created_at,
     yurts: { name, image },
+    experiences,
   } = booking;
+
+  const experience = experiences || "";
 
   const pastBooking =
     isPast(new Date(startDate)) && !isToday(new Date(startDate));
@@ -67,7 +72,11 @@ function ReservationCard({ booking }) {
           <p className="text-sm text-plum/70 sm:text-base">
             {numGuests} guest{numGuests > 1 ? "s" : ""}
           </p>
-
+          {experience && (
+            <p className="text-sm text-plum/70">
+              <em className="font-bold">Experience:</em> {experience}
+            </p>
+          )}
           <p className="w-full text-xs text-plum/50 sm:ml-auto sm:w-auto sm:text-right">
             Booked {format(new Date(created_at), "EEE, MMM dd yyyy, p")}
           </p>
@@ -84,8 +93,8 @@ function ReservationCard({ booking }) {
             <span>Edit</span>
           </Link>
 
-          <div className="flex flex-1 items-center justify-center">
-            <DeleteReservation bookingId={id} />
+          <div className="group flex flex-1 items-center justify-center gap-2 border-r border-pink px-3 py-3 text-xs font-bold uppercase text-plum/70 transition-colors hover:bg-pink hover:text-plum sm:border-r-0 sm:border-b sm:px-2">
+            <DeleteReservation bookingId={id} onDelete={onDelete} />
           </div>
         </div>
       )}

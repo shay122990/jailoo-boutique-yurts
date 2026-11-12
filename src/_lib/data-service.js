@@ -106,7 +106,8 @@ export async function getBookings(guestId) {
       guestId,
       yurtId,
       status,
-      yurts(name, image)
+      yurts(name, image),
+      experiences
     `,
     )
     .eq("guestId", guestId)
