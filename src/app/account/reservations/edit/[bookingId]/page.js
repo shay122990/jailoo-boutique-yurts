@@ -4,12 +4,23 @@ import {
   getExperiences,
   getYurtById,
 } from "../../../../../_lib/data-service";
+import { auth } from "../../../../../_lib/auth";
+import { redirect, notFound } from "next/navigation";
 import SubmitButton from "../../../../_components/SubmitButton";
 
 async function Page({ params }) {
+  const session = await auth();
+
+  if (!session?.user?.guestId) redirect("/login");
+
   const { bookingId } = await params;
 
-  const { yurtId, numGuests } = await getBooking(bookingId);
+  const booking = await getBooking(bookingId, session.user.guestId);
+
+  if (!booking) notFound();
+
+  const { yurtId, numGuests, experienceId } = booking;
+
   const { capacity } = await getYurtById(yurtId);
   const experiences = await getExperiences();
 
@@ -58,20 +69,20 @@ async function Page({ params }) {
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="experiences" className="font-medium text-plum">
+          <label htmlFor="experienceId" className="font-medium text-plum">
             Choose an experience
           </label>
 
           <select
-            name="experiences"
-            id="experiences"
-            defaultValue=""
+            name="experienceId"
+            id="experienceId"
+            defaultValue={experienceId ?? ""}
             className="w-full rounded-md border border-pink bg-[#fdf8fa] px-4 py-3 text-plum shadow-sm outline-none transition focus:border-purple focus:ring-2 focus:ring-purple/15"
           >
             <option value="">Select an experience...</option>
 
             {experiences.map((experience) => (
-              <option value={experience.title} key={experience.id}>
+              <option value={experience.id} key={experience.id}>
                 {experience.title}
               </option>
             ))}

@@ -1,13 +1,15 @@
 "use client";
 
-import { isWithinInterval } from "date-fns";
+import {
+  differenceInDays,
+  isPast,
+  isSameDay,
+  isWithinInterval,
+} from "date-fns";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useReservation } from "../../_context/ReservationContext";
-import {
-  CalendarDaysIcon,
-  CurrencyDollarIcon,
-} from "@heroicons/react/24/outline";
+import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 
 function isAlreadyBooked(range, datesArr) {
   return (
@@ -18,17 +20,26 @@ function isAlreadyBooked(range, datesArr) {
     )
   );
 }
-
 function DateSelector({ settings, yurt, bookedDates }) {
   const { range, setRange, resetRange } = useReservation();
 
-  // CHANGE
-  const regularPrice = 23;
-  const discount = 23;
-  const numNights = 23;
-  const cabinPrice = 23;
+  const displayRange = isAlreadyBooked(range, bookedDates) ? {} : range;
 
   const { minBookingLength, maxBookingLength } = settings;
+
+  // Use the current yurts table column names
+  const regularPrice = Number(yurt.price) || 0;
+  const discount = Number(yurt.discount) || 0;
+
+  const discountedPrice = regularPrice * (1 - discount / 100);
+
+  // Only calculate when both dates are selected
+  const numNights =
+    displayRange.from && displayRange.to
+      ? differenceInDays(displayRange.to, displayRange.from)
+      : 0;
+
+  const yurtPrice = numNights > 0 ? numNights * discountedPrice : 0;
 
   return (
     <div className="flex h-full min-h-155 flex-col overflow-hidden rounded-2xl border border-plum/15 bg-white shadow-sm">
@@ -58,7 +69,11 @@ function DateSelector({ settings, yurt, bookedDates }) {
           numberOfMonths={2}
           hideNavigation
           onSelect={setRange}
-          selected={range}
+          selected={displayRange}
+          disabled={(curDate) =>
+            isPast(curDate) ||
+            bookedDates.some((date) => isSameDay(date, curDate))
+          }
         />
       </div>
 
@@ -69,7 +84,7 @@ function DateSelector({ settings, yurt, bookedDates }) {
             {discount > 0 ? (
               <>
                 <span className="text-2xl font-semibold text-plum">
-                  ${regularPrice - discount}
+                  ${discountedPrice}
                 </span>
 
                 <span className="text-sm text-purple/60 line-through">
@@ -85,7 +100,7 @@ function DateSelector({ settings, yurt, bookedDates }) {
             <span className="text-sm text-bg/60">/night</span>
           </p>
 
-          {numNights ? (
+          {numNights > 0 && (
             <>
               <span className="rounded-md bg-peach/30 px-3 py-2 text-sm font-semibold text-plum">
                 × {numNights} nights
@@ -97,11 +112,11 @@ function DateSelector({ settings, yurt, bookedDates }) {
                 </span>
 
                 <span className="text-xl font-semibold text-plum">
-                  ${cabinPrice}
+                  ${yurtPrice}
                 </span>
               </p>
             </>
-          ) : null}
+          )}
         </div>
 
         {(range.from || range.to) && (

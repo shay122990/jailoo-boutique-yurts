@@ -1,5 +1,6 @@
 import { eachDayOfInterval } from "date-fns";
 import { supabase } from "./supabase";
+import { supabaseAdmin } from "./supabaseAdmin";
 import { notFound } from "next/navigation";
 import countries from "world-countries";
 
@@ -76,15 +77,16 @@ export async function getGuest(email) {
   return data;
 }
 
-export async function getBooking(id) {
-  const { data, error } = await supabase
+export async function getBooking(id, guestId) {
+  const { data, error } = await supabaseAdmin
     .from("bookings")
     .select("*")
     .eq("id", id)
-    .single();
+    .eq("guestId", guestId)
+    .maybeSingle();
 
   if (error) {
-    console.error(error);
+    console.error("Error fetching booking:", error);
     throw new Error("Booking could not get loaded");
   }
 
@@ -92,29 +94,26 @@ export async function getBooking(id) {
 }
 
 export async function getBookings(guestId) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from("bookings")
     .select(
       `
-      id,
-      created_at,
-      startDate,
-      endDate,
-      numNights,
-      numGuests,
-      totalPrice,
-      guestId,
-      yurtId,
-      status,
-      yurts(name, image),
-      experiences
-    `,
+        *,
+        yurts (
+          name,
+          image
+        ),
+        experiences (
+          id,
+          title
+        )
+      `,
     )
     .eq("guestId", guestId)
     .order("startDate");
 
   if (error) {
-    console.error(error);
+    console.error("Error fetching bookings:", error);
     throw new Error("Bookings could not get loaded");
   }
 
@@ -125,7 +124,7 @@ export async function getBookedDatesByYurtId(yurtId) {
   const today = new Date();
   today.setUTCHours(0, 0, 0, 0);
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from("bookings")
     .select("startDate, endDate")
     .eq("yurtId", yurtId)

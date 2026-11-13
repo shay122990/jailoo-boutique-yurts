@@ -24,7 +24,7 @@ function ReservationCard({ booking, onDelete }) {
     experiences,
   } = booking;
 
-  const experience = experiences || "";
+  // const experience = experiences || "";
 
   const pastBooking =
     isPast(new Date(startDate)) && !isToday(new Date(startDate));
@@ -72,9 +72,9 @@ function ReservationCard({ booking, onDelete }) {
           <p className="text-sm text-plum/70 sm:text-base">
             {numGuests} guest{numGuests > 1 ? "s" : ""}
           </p>
-          {experience && (
-            <p className="text-sm text-plum/70">
-              <em className="font-bold">Experience:</em> {experience}
+          {experiences?.title && (
+            <p>
+              <span className="font-bold">Experience:</span> {experiences.title}
             </p>
           )}
           <p className="w-full text-xs text-plum/50 sm:ml-auto sm:w-auto sm:text-right">

@@ -4,6 +4,7 @@ import { auth, signIn, signOut } from "./auth";
 import { supabase } from "./supabase";
 import { getBookings, getYurtById } from "./data-service";
 import { redirect } from "next/navigation";
+import { supabaseAdmin } from "./supabaseAdmin";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" });
@@ -68,7 +69,7 @@ export async function deleteReservation(bookingId) {
   if (!guestBookingIds.includes(bookingId))
     throw new Error("You are not allowed to delete this booking");
 
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from("bookings")
     .delete()
     .eq("id", bookingId);
@@ -83,7 +84,9 @@ export async function deleteReservation(bookingId) {
 export async function updateReservation(formData) {
   const bookingId = Number(formData.get("bookingId"));
   const numGuests = Number(formData.get("numGuests"));
-  const experiences = formData.get("experiences") || null;
+
+  const rawExperienceId = formData.get("experienceId");
+  const experienceId = rawExperienceId ? Number(rawExperienceId) : null;
 
   const session = await auth();
 
@@ -91,17 +94,17 @@ export async function updateReservation(formData) {
     throw new Error("You must be logged in");
   }
 
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from("bookings")
     .update({
       numGuests,
-      experiences,
+      experienceId,
     })
     .eq("id", bookingId)
     .eq("guestId", session.user.guestId);
 
   if (error) {
-    console.error(error);
+    console.error("Booking update error:", error);
     throw new Error("Booking could not be updated");
   }
 
