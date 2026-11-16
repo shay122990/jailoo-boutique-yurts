@@ -10,7 +10,7 @@ import ReservationForm from "./ReservationForm";
 import LoginMessage from "./LoginMessage";
 import { auth } from "../../_lib/auth";
 
-async function Reservation({ yurt }) {
+async function Reservation({ yurt, experiences }) {
   const [settings, bookedDates] = await Promise.all([
     getYurtSettings(),
     getBookedDatesByYurtId(yurt.id),
@@ -58,7 +58,11 @@ async function Reservation({ yurt }) {
           />
 
           {session?.user ? (
-            <ReservationForm yurt={yurt} user={session.user} />
+            <ReservationForm
+              yurt={yurt}
+              user={session.user}
+              experiences={experiences}
+            />
           ) : (
             <LoginMessage />
           )}

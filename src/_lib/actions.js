@@ -113,3 +113,41 @@ export async function updateReservation(formData) {
 
   redirect("/account/reservations");
 }
+
+export async function createBooking(bookingData, formData) {
+  const session = await auth();
+
+  if (!session?.user?.guestId) {
+    throw new Error("You must be logged in");
+  }
+
+  const newBooking = {
+    ...bookingData,
+    guestId: session.user.guestId,
+    numGuests: Number(formData.get("numGuests")),
+    experienceId: formData.get("experienceId")
+      ? Number(formData.get("experienceId"))
+      : null,
+    observations: (formData.get("observations") || "").slice(0, 1000),
+    extrasPrice: 0,
+    totalPrice: bookingData.yurtPrice,
+    isPaid: false,
+    hasBreakfast: false,
+    status: "unconfirmed",
+  };
+
+  const { error } = await supabaseAdmin
+    .from("bookings")
+    .insert([newBooking])
+    .select()
+    .single();
+
+  if (error) {
+    console.error("Booking creation error:", error);
+    throw new Error("Booking could not be created");
+  }
+
+  revalidatePath(`/yurts/${bookingData.yurtId}`);
+
+  redirect("/yurts/confirmation");
+}

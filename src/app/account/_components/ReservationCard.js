@@ -24,8 +24,6 @@ function ReservationCard({ booking, onDelete }) {
     experiences,
   } = booking;
 
-  // const experience = experiences || "";
-
   const pastBooking =
     isPast(new Date(startDate)) && !isToday(new Date(startDate));
 

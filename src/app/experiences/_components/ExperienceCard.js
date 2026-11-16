@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function ExperienceCard({ experience }) {
-  const { id, image, title, category, duration, description } = experience;
+  const { id, image, title, category, duration, description, price } =
+    experience;
 
   return (
     <article key={id} className="group">
@@ -27,6 +28,7 @@ export default function ExperienceCard({ experience }) {
       <h3 className="mt-3 font-heading text-2xl">{title}</h3>
 
       <p className="mt-3 text-sm leading-7 text-[#686a60]">{description}</p>
+      <p className="mt-3 text-sm leading-7 text-[#686a60]">${price}</p>
 
       <Link
         href="/contact"

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getYurt } from "../../../_lib/data-service";
+import { getExperiences, getYurt } from "../../../_lib/data-service";
 
 import YurtHero from "./_components/YurtHero";
 import YurtIntro from "./_components/YurtIntro";
@@ -20,6 +20,7 @@ export async function generateMetadata({ params }) {
 export default async function Page({ params }) {
   const { yurtId } = await params;
   const yurt = await getYurt(yurtId);
+  const experiences = await getExperiences();
 
   if (!yurt) notFound();
 
@@ -36,7 +37,7 @@ export default async function Page({ params }) {
           </div>
         }
       >
-        <Reservation yurt={yurt} />
+        <Reservation yurt={yurt} experiences={experiences} />
       </Suspense>
     </main>
   );
