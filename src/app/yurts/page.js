@@ -1,9 +1,9 @@
 import { Suspense } from "react";
-import Filter from "../_components/Filter";
+import Filter from "./_components/Filter";
 import Spinner from "../_components/Spinner";
 import YurtList from "./_components/YurtsList";
 import YurtsIntro from "./_components/YurtsIntro";
-import ReservationReminder from "../_components/ReservationReminder";
+import ReservationReminder from "./_components/ReservationReminder";
 
 export const metadata = {
   title: "Yurts",

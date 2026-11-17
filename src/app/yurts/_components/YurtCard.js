@@ -68,7 +68,7 @@ export default function YurtCard({ yurt }) {
 
         <Link
           href={`/yurts/${slug}`}
-          className="inline-flex items-center gap-1 border-b border-[#858772] pb-1 text-[9px] uppercase tracking-wider transition-colors hover:text-[#858772] sm:gap-2 sm:text-xs sm:tracking-[0.15em]"
+          className="inline-flex items-center gap-1 border-b border-plum/40 pb-1 text-[9px] uppercase tracking-wider text-plum transition-colors duration-300 hover:border-teal hover:text-teal sm:gap-2 sm:text-xs sm:tracking-[0.15em]"
         >
           Explore <span className="hidden sm:inline">yurt</span>
           <span aria-hidden="true">↗</span>

@@ -26,7 +26,7 @@ export default function AboutIntro() {
 
       <Link
         href="/experiences"
-        className="mt-8 inline-flex bg-plum px-8 py-4 text-lg uppercase tracking-[0.2em] text-white transition-colors hover:bg-pink hover:text-plum"
+        className="mt-8 inline-flex border-2 border-transparent bg-plum px-8 py-4 text-lg uppercase tracking-[0.2em] text-white transition-colors hover:border-plum hover:bg-pink hover:text-plum"
       >
         Explore experiences
       </Link>

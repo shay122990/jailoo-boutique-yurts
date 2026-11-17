@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useReservation } from "../../_context/ReservationContext";
+import { useReservation } from "../../../../_context/ReservationContext";
 import { differenceInDays } from "date-fns";
-import { createBooking } from "../../_lib/actions";
-import SubmitButton from "./SubmitButton";
+import { createBooking } from "../../../../_lib/actions";
+import SubmitButton from "../../../_components/SubmitButton";
 
 function ReservationForm({ yurt, experiences, user }) {
   const { range, resetRange } = useReservation();
@@ -90,9 +90,10 @@ function ReservationForm({ yurt, experiences, user }) {
             className="block text-sm font-semibold text-plum"
           >
             Experience
-            {/* <p className="text-xs text-bg/60">
-              Optional · Experiences are available at an additional cost.
-            </p> */}
+            <p className="text-xs text-bg/60">
+              Optional · Additional experiences are available to book at check
+              in.
+            </p>
           </label>
 
           <select

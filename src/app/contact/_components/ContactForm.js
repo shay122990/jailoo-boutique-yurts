@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import SubmitButton from "../../_components/SubmitButton";
 
 const inputClass =
   "mt-2 w-full border border-[#dedbce] bg-[#fdfcf9] px-4 py-3 text-sm text-[#414938] outline-none transition-colors placeholder:text-[#aaa99e] focus:border-[#7c8067]";
@@ -158,13 +159,7 @@ export default function ContactForm() {
         />
       </div>
 
-      <button
-        type="submit"
-        className="inline-flex w-full items-center justify-center gap-3 bg-[#414938] px-8 py-4 text-xs uppercase tracking-[0.2em] text-white transition-colors hover:bg-[#30372a] sm:w-auto"
-      >
-        Send your enquiry
-        <span aria-hidden="true">↗</span>
-      </button>
+      <SubmitButton>Send your enquire</SubmitButton>
 
       <p className="text-xs leading-5 text-[#858579]">
         Fields marked with * are required.

@@ -4,8 +4,9 @@ import { getExperiences, getYurt } from "../../../_lib/data-service";
 import YurtHero from "./_components/YurtHero";
 import YurtIntro from "./_components/YurtIntro";
 import { Suspense } from "react";
-import Reservation from "../../_components/Reservation";
+
 import Spinner from "../../_components/Spinner";
+import Reservation from "./_components/Reservation";
 
 export async function generateMetadata({ params }) {
   const { yurtId } = await params;

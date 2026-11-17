@@ -16,7 +16,7 @@ function Filter() {
   }
 
   return (
-    <div className="border border-primary-800 flex ">
+    <div className="border border-plum flex">
       <Button
         filter="all"
         handleFilter={handleFilter}
@@ -45,7 +45,11 @@ function Filter() {
 function Button({ filter, handleFilter, activeFilter, children }) {
   return (
     <button
-      className={`px-5 py-2 hover:bg-primary-700 ${filter === activeFilter ? "bg-primary-700 text-primary-50" : ""}`}
+      className={` border px-5 py-2 text-xs uppercase tracking-wider transition-colors duration-300 ${
+        filter === activeFilter
+          ? "border-plum bg-plum text-white"
+          : "border-plum/25 bg-white text-plum hover:border-teal hover:bg-teal hover:text-white"
+      }`}
       onClick={() => handleFilter(filter)}
     >
       {children}

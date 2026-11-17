@@ -7,7 +7,7 @@ function SubmitButton({ children, pendingLabel }) {
   return (
     <button
       disabled={pending}
-      className="w-full rounded-md bg-peach px-7 py-3 font-semibold text-plum transition-colors hover:bg-peach/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+      className="w-full  bg-aqua  border-plum px-7 py-3 font-semibold text-white transition-colors hover:bg-teal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
     >
       {pending ? pendingLabel : children}
     </button>

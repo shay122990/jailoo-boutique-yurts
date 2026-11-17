@@ -30,11 +30,12 @@ export default function ExperienceCard({ experience }) {
       <p className="mt-3 text-sm leading-7 text-[#686a60]">{description}</p>
       <p className="mt-3 text-sm leading-7 text-[#686a60]">${price}</p>
 
+      <p>You can book your experience with us</p>
       <Link
-        href="/contact"
-        className="mt-5 inline-flex items-center gap-2 border-b border-[#858772] pb-1 text-xs uppercase tracking-[0.15em] transition-colors hover:text-[#858772]"
+        href="/yurts"
+        className="mt-5 inline-flex items-center gap-2 border-b border-plum/40 pb-1 text-xs uppercase tracking-[0.15em] text-plum transition-colors duration-300 hover:border-teal hover:text-teal"
       >
-        Enquire about experience
+        Plan your stay
         <span aria-hidden="true">↗</span>
       </Link>
     </article>

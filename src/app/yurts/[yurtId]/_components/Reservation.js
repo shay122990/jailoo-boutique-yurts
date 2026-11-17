@@ -3,12 +3,12 @@ import { CalendarDaysIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import {
   getBookedDatesByYurtId,
   getYurtSettings,
-} from "../../_lib/data-service";
+} from "../../../../_lib/data-service";
 
 import DateSelector from "./DateSelector";
 import ReservationForm from "./ReservationForm";
-import LoginMessage from "./LoginMessage";
-import { auth } from "../../_lib/auth";
+import LoginMessage from "../../../_components/LoginMessage";
+import { auth } from "../../../../_lib/auth";
 
 async function Reservation({ yurt, experiences }) {
   const [settings, bookedDates] = await Promise.all([

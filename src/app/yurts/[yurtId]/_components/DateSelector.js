@@ -8,7 +8,7 @@ import {
 } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
-import { useReservation } from "../../_context/ReservationContext";
+import { useReservation } from "../../../../_context/ReservationContext";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 
 function isAlreadyBooked(range, datesArr) {
@@ -51,7 +51,12 @@ function DateSelector({ settings, yurt, bookedDates }) {
 
         <div className="mt-1 flex items-center gap-2">
           <CalendarDaysIcon className="h-5 w-5 text-peach" strokeWidth={1.5} />
-          <h3 className="text-xl font-medium text-white">Select your dates</h3>
+          <div className="flex justify-between gap-4 items-center">
+            <h3 className="text-xl font-medium text-white">
+              Select your dates
+            </h3>
+            <span className="text-red font-bold">Minimum stay is 2 nights</span>
+          </div>
         </div>
       </div>
 
