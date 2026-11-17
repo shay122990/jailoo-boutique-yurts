@@ -6,33 +6,26 @@ import {
   CheckCircleIcon,
 } from "@heroicons/react/24/outline";
 
+const QUICK_FACTS = [
+  { label: "Guests", Icon: UsersIcon },
+  { label: "Bedrooms", Icon: HomeModernIcon },
+  { label: "Setting", Icon: MapPinIcon },
+  { label: "From", Icon: CurrencyDollarIcon },
+];
+
 function YurtIntro({ yurt }) {
+  const quickFacts = [
+    `${yurt.capacity} guests`,
+    `${yurt.bedrooms} ${yurt.bedrooms === 1 ? "bedroom" : "bedrooms"}`,
+    yurt.location,
+    `$ ${Number(yurt.price).toLocaleString()} / night`,
+  ];
+
   return (
     <>
       {/* Quick facts */}
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 py-8 sm:grid-cols-4 md:px-12">
-        {[
-          {
-            label: "Guests",
-            value: `${yurt.capacity} guests`,
-            Icon: UsersIcon,
-          },
-          {
-            label: "Bedrooms",
-            value: `${yurt.bedrooms} ${yurt.bedrooms === 1 ? "bedroom" : "bedrooms"}`,
-            Icon: HomeModernIcon,
-          },
-          {
-            label: "Setting",
-            value: yurt.location,
-            Icon: MapPinIcon,
-          },
-          {
-            label: "From",
-            value: `$ ${Number(yurt.price).toLocaleString()} / night`,
-            Icon: CurrencyDollarIcon,
-          },
-        ].map(({ label, value, Icon }) => (
+        {QUICK_FACTS.map(({ label, Icon }, index) => (
           <div key={label} className="flex items-center gap-4">
             <Icon className="h-7 w-7 shrink-0 text-purple" strokeWidth={1.5} />
 
@@ -40,7 +33,7 @@ function YurtIntro({ yurt }) {
               <p className="text-xs uppercase tracking-widest text-purple">
                 {label}
               </p>
-              <p className="mt-1 text-lg text-plum">{value}</p>
+              <p className="mt-1 text-lg text-plum">{quickFacts[index]}</p>
             </div>
           </div>
         ))}
@@ -117,13 +110,6 @@ function YurtIntro({ yurt }) {
               Ready to experience the mountains? Get in touch to plan your stay.
             </p>
           </div>
-
-          <a
-            href="#"
-            className="mt-6 block rounded-lg bg-teal px-5 py-3 text-center text-sm font-semibold text-white transition hover:bg-aqua hover:text-plum"
-          >
-            Plan your stay
-          </a>
         </aside>
       </section>
     </>

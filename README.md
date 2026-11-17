@@ -1,6 +1,5 @@
 TODO
 
-1. multiple select on experiences, so send an array , update action, sql, reservation card and select
 1. remove form from experiences,
 1. optimize reusable components
 1. price experience col?

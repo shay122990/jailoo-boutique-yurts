@@ -17,7 +17,7 @@ export default function YurtCard({ yurt }) {
   return (
     <article className="group w-full">
       {/* Image */}
-      <div className="relative mb-3 aspect-4/3 overflow-hidden bg-[#e5e1d6] sm:mb-5 sm:aspect-[4/5]">
+      <div className="relative mb-3 aspect-4/3 overflow-hidden bg-[#e5e1d6] sm:mb-5 sm:aspect-4/5">
         <Image
           src={image}
           alt={name}
