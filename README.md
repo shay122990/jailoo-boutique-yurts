@@ -8,4 +8,3 @@ TODO
 1. when updating user profile, the flag changes but select doesnt, - revalidate
 1. fix and connect contact form
 1. fix responsiveness on reservation form
-1. fix height difference in yurt cards

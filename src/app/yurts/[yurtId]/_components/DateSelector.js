@@ -44,19 +44,26 @@ function DateSelector({ settings, yurt, bookedDates }) {
   return (
     <div className="flex h-full min-h-155 flex-col overflow-hidden rounded-2xl border border-plum/15 bg-white shadow-sm">
       {/* Header */}
-      <div className="bg-plum px-8 py-5 sm:px-10">
-        <p className="text-xs uppercase tracking-[0.25em] text-peach">
-          Plan your stay
-        </p>
+      <div className="flex min-h-39 flex-col justify-center gap-3 bg-plum px-5 py-5 min-[1000px]:min-h-28 min-[1000px]:flex-row min-[1000px]:items-center min-[1000px]:justify-between min-[1000px]:px-10 min-[1000px]:py-6">
+        <div className="flex items-center gap-3">
+          <CalendarDaysIcon
+            className="h-6 w-6 shrink-0 text-peach"
+            strokeWidth={1.5}
+          />
 
-        <div className="mt-1 flex items-center gap-2">
-          <CalendarDaysIcon className="h-5 w-5 text-peach" strokeWidth={1.5} />
-          <div className="flex justify-between gap-4 items-center">
-            <h3 className="text-xl font-medium text-white">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-peach sm:text-xs sm:tracking-[0.25em]">
+              Plan your stay
+            </p>
+            <h3 className="mt-1 text-lg font-medium text-white sm:text-xl">
               Select your dates
             </h3>
-            <span className="text-red font-bold">Minimum stay is 2 nights</span>
           </div>
+        </div>
+        <div className="border-t border-white/15 pt-3 min-[1000px]:border-0 min-[1000px]:pt-0">
+          <span className="inline-flex items-center rounded-md bg-white/10 px-3 py-2 text-xs font-medium text-peach sm:text-sm">
+            Minimum stay: 2 nights
+          </span>
         </div>
       </div>
 
@@ -81,7 +88,6 @@ function DateSelector({ settings, yurt, bookedDates }) {
           }
         />
       </div>
-
       {/* Pricing */}
       <div className="mt-auto flex min-h-22 items-center justify-between gap-3 border-t border-plum/15 bg-pink/30 px-5 py-4 sm:px-8">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">

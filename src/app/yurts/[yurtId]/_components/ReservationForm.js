@@ -5,12 +5,11 @@ import { useReservation } from "../../../../_context/ReservationContext";
 import { differenceInDays } from "date-fns";
 import { createBooking } from "../../../../_lib/actions";
 import SubmitButton from "../../../_components/SubmitButton";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 function ReservationForm({ yurt, experiences, user }) {
   const { range, resetRange } = useReservation();
   const { capacity, price, discount, id } = yurt;
-  const title = experiences.map((t) => t.title);
-  console.log(title);
 
   const startDate = range.from;
   const endDate = range.to;
@@ -30,26 +29,39 @@ function ReservationForm({ yurt, experiences, user }) {
   return (
     <div className="flex h-full min-h-155 flex-col overflow-hidden rounded-2xl border border-plum/15 bg-white shadow-sm">
       {/* Header */}
-      <div className="flex items-center justify-between bg-plum px-8 py-5 sm:px-10">
-        <div>
-          <p className="text-xs uppercase tracking-[0.25em] text-peach">
-            Your reservation
-          </p>
-          <div className="flex space-x-10 justify-between items-center">
-            <h3 className="mt-1 text-xl font-medium text-white">
+      <div className="flex min-h-39 flex-col justify-center gap-3 bg-plum px-5 py-5 min-[1000px]:min-h-28 min-[1000px]:flex-row min-[1000px]:items-center min-[1000px]:justify-between min-[1000px]:px-10 min-[1000px]:py-6">
+        <div className="flex items-center gap-3">
+          <UserCircleIcon
+            className="h-6 w-6 shrink-0 text-peach"
+            strokeWidth={1.5}
+          />
+
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-peach sm:text-xs sm:tracking-[0.25em]">
+              Your reservation
+            </p>
+            <h3 className="mt-1 text-lg font-medium text-white sm:text-xl">
               Guest details
             </h3>
-            <span className=" flex gap-2 mt-1 text-xl font-medium text-white">
-              <Image
-                src={user.image}
-                alt="user avatar"
-                width={30}
-                height={30}
-                className="rounded-full"
-              />
-              {user.name}
-            </span>
           </div>
+        </div>
+
+        <div className="flex min-w-0 items-center gap-3 border-t border-white/15 pt-3 min-[1000px]:border-0 min-[1000px]:pt-0">
+          {user.image ? (
+            <Image
+              src={user.image}
+              alt={user.name || "Guest avatar"}
+              width={36}
+              height={36}
+              className="h-9 w-9 shrink-0 rounded-full object-cover"
+            />
+          ) : (
+            <UserCircleIcon className="h-9 w-9 shrink-0 text-peach" />
+          )}
+
+          <span className="truncate text-sm font-medium text-white">
+            {user.name}
+          </span>
         </div>
       </div>
 
@@ -92,7 +104,7 @@ function ReservationForm({ yurt, experiences, user }) {
             Experience
             <p className="text-xs text-bg/60">
               Optional · Additional experiences are available to book at check
-              in.
+              in with extra charge.
             </p>
           </label>
 

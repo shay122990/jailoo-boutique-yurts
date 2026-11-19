@@ -29,9 +29,9 @@ async function YurtList({ filter }) {
       break;
   }
   return (
-    <div className="grid w-full grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 items-stretch gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {displayYurts.map((yurt) => (
-        <YurtCard yurt={yurt} key={yurt.id} />
+        <YurtCard key={yurt.id} yurt={yurt} />
       ))}
     </div>
   );

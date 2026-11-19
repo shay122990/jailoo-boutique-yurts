@@ -13,6 +13,7 @@ function ReservationList({ bookings }) {
   async function handleDelete(bookingId) {
     optimisticDelete(bookingId);
     await deleteReservation(bookingId);
+    console.log("clicked");
   }
 
   return (

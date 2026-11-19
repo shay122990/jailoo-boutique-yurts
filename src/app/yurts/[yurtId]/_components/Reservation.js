@@ -50,7 +50,7 @@ async function Reservation({ yurt, experiences }) {
         </div>
 
         {/* Reservation panels */}
-        <div className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 items-stretch gap-6 min-[1000px]:grid-cols-2">
           <DateSelector
             settings={settings}
             bookedDates={bookedDates}
