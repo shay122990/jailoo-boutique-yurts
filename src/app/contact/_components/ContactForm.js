@@ -11,34 +11,33 @@ export default function ContactForm() {
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    // Connect this handler to your email service before launch.
     setSubmitted(true);
   }
 
-  if (submitted) {
-    return (
-      <div
-        role="status"
-        className="border border-[#dedbce] bg-[#f8f6f0] p-8 text-center"
-      >
-        <p className="font-marcellus text-2xl text-[#414938]">
-          Thank you for reaching out.
-        </p>
-        <p className="mt-3 text-sm leading-7 text-[#686a60]">
-          The form is not connected to an email service yet, so your message has
-          not been sent. Please connect the form before accepting enquiries.
-        </p>
-        <button
-          type="button"
-          onClick={() => setSubmitted(false)}
-          className="mt-6 border-b border-[#858772] pb-1 text-xs uppercase tracking-[0.15em] text-[#414938]"
-        >
-          Return to form
-        </button>
-      </div>
-    );
-  }
+  // TO BE REPLACED
+  // if (submitted) {
+  //   return (
+  //     <div
+  //       role="status"
+  //       className="border border-[#dedbce] bg-[#f8f6f0] p-8 text-center"
+  //     >
+  //       <p className="font-marcellus text-2xl text-[#414938]">
+  //         Thank you for reaching out.
+  //       </p>
+  //       <p className="mt-3 text-sm leading-7 text-[#686a60]">
+  //         The form is not connected to an email service yet, so your message has
+  //         not been sent. Please connect the form before accepting enquiries.
+  //       </p>
+  //       <button
+  //         type="button"
+  //         onClick={() => setSubmitted(false)}
+  //         className="mt-6 border-b border-[#858772] pb-1 text-xs uppercase tracking-[0.15em] text-[#414938]"
+  //       >
+  //         Return to form
+  //       </button>
+  //     </div>
+  //   );
+  // }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">

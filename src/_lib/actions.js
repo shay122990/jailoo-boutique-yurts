@@ -2,9 +2,12 @@
 import { revalidatePath } from "next/cache";
 import { auth, signIn, signOut } from "./auth";
 import { supabase } from "./supabase";
-import { getBookings, getYurtById } from "./data-service";
+import { getBookings } from "./data-service";
 import { redirect } from "next/navigation";
 import { supabaseAdmin } from "./supabaseAdmin";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" });
@@ -150,4 +153,80 @@ export async function createBooking(bookingData, formData) {
   revalidatePath(`/yurts/${bookingData.yurtId}`);
 
   redirect("/yurts/confirmation");
+}
+
+export async function sendContactEnquiry(prevState, formData) {
+  const name = formData.get("name")?.trim();
+  const email = formData.get("email")?.trim();
+  const enquiry = formData.get("enquiry");
+  const arrival = formData.get("arrival");
+  const guests = formData.get("guests");
+  const message = formData.get("message")?.trim();
+
+  if (!name || !email || !enquiry || !message) {
+    return {
+      status: "error",
+      message: "Please complete all required fields.",
+    };
+  }
+
+  // 3. Validate input values
+  const validEnquiries = ["accommodation", "experiences", "booking", "other"];
+
+  const validGuests = ["1", "2", "3", "4", "5+"];
+
+  if (
+    name.length > 100 ||
+    email.length > 254 ||
+    message.length > 5000 ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
+    !validEnquiries.includes(enquiry) ||
+    !validGuests.includes(guests)
+  ) {
+    return {
+      status: "error",
+      message: "Please check your submitted details.",
+    };
+  }
+
+  //Send email using Resend
+  try {
+    const { error } = await resend.emails.send({
+      from: "Jailoo <onboarding@resend.dev>",
+      to: process.env.CONTACT_EMAIL,
+      replyTo: email,
+      subject: `New Jailoo enquiry: ${enquiry}`,
+      text: `
+          Name: ${name}
+          Email: ${email}
+          Enquiry: ${enquiry}
+          Arrival: ${arrival || "Not specified"}
+          Guests: ${guests || "Not specified"}
+
+          Message:
+          ${message}
+      `,
+    });
+
+    if (error) {
+      console.error("Resend error:", error);
+
+      return {
+        status: "error",
+        message: "Unable to send your enquiry. Please try again.",
+      };
+    }
+
+    return {
+      status: "success",
+      message: "Thank you for reaching out. We'll be in touch soon.",
+    };
+  } catch (error) {
+    console.error("Contact form error:", error);
+
+    return {
+      status: "error",
+      message: "Something went wrong. Please try again later.",
+    };
+  }
 }

@@ -10,6 +10,7 @@ async function SelectCountry({ defaultCountry, name, id, className }) {
 
   return (
     <select
+      key={defaultCountry}
       name={name}
       id={id}
       defaultValue={`${defaultCountry}%${flag}`}
