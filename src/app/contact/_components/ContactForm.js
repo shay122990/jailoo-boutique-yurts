@@ -1,46 +1,21 @@
 "use client";
-
-import { useState } from "react";
+import { useActionState } from "react";
+import { sendContactEnquiry } from "../../../_lib/actions";
 import SubmitButton from "../../_components/SubmitButton";
 
 const inputClass =
   "mt-2 w-full border border-[#dedbce] bg-[#fdfcf9] px-4 py-3 text-sm text-[#414938] outline-none transition-colors placeholder:text-[#aaa99e] focus:border-[#7c8067]";
 
 export default function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
+  const initialState = {
+    status: "",
+    message: "",
+  };
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    setSubmitted(true);
-  }
-
-  // TO BE REPLACED
-  // if (submitted) {
-  //   return (
-  //     <div
-  //       role="status"
-  //       className="border border-[#dedbce] bg-[#f8f6f0] p-8 text-center"
-  //     >
-  //       <p className="font-marcellus text-2xl text-[#414938]">
-  //         Thank you for reaching out.
-  //       </p>
-  //       <p className="mt-3 text-sm leading-7 text-[#686a60]">
-  //         The form is not connected to an email service yet, so your message has
-  //         not been sent. Please connect the form before accepting enquiries.
-  //       </p>
-  //       <button
-  //         type="button"
-  //         onClick={() => setSubmitted(false)}
-  //         className="mt-6 border-b border-[#858772] pb-1 text-xs uppercase tracking-[0.15em] text-[#414938]"
-  //       >
-  //         Return to form
-  //       </button>
-  //     </div>
-  //   );
-  // }
+  const [state, formAction] = useActionState(sendContactEnquiry, initialState);
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form action={formAction} className="space-y-6">
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
           <label
@@ -78,7 +53,6 @@ export default function ContactForm() {
           />
         </div>
       </div>
-
       <div>
         <label
           htmlFor="enquiry"
@@ -102,7 +76,6 @@ export default function ContactForm() {
           <option value="other">Something else</option>
         </select>
       </div>
-
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
           <label
@@ -140,7 +113,6 @@ export default function ContactForm() {
           </select>
         </div>
       </div>
-
       <div>
         <label
           htmlFor="message"
@@ -157,12 +129,25 @@ export default function ContactForm() {
           className={`${inputClass} resize-y`}
         />
       </div>
-
-      <SubmitButton>Send your enquire</SubmitButton>
+      <SubmitButton pendingLabel="Sending...">Send your enquire</SubmitButton>
 
       <p className="text-xs leading-5 text-[#858579]">
         Fields marked with * are required.
       </p>
+
+      <div>
+        {state.status === "success" && (
+          <p role="status" className="text-lg text-teal">
+            {state.message}
+          </p>
+        )}
+
+        {state.status === "error" && (
+          <p role="alert" className="text-lg text-red">
+            {state.message}
+          </p>
+        )}
+      </div>
     </form>
   );
 }

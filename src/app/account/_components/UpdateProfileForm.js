@@ -1,6 +1,3 @@
-"use client";
-
-import { useFormStatus } from "react-dom";
 import { updateGuestProfile } from "../../../_lib/actions";
 import SubmitButton from "../../_components/SubmitButton";
 
