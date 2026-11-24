@@ -2,10 +2,11 @@
 import { revalidatePath } from "next/cache";
 import { auth, signIn, signOut } from "./auth";
 import { supabase } from "./supabase";
-import { getBookings } from "./data-service";
+import { getBookings, getYurtPrice } from "./data-service";
 import { redirect } from "next/navigation";
 import { supabaseAdmin } from "./supabaseAdmin";
 import { Resend } from "resend";
+import stripe from "./stripe";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -123,6 +124,13 @@ export async function createBooking(bookingData, formData) {
   if (!session?.user?.guestId) {
     throw new Error("You must be logged in");
   }
+  const yurt = await getYurtPrice(bookingData.yurtId);
+
+  if (!yurt) {
+    throw new Error("Yurt not found");
+  }
+
+  const yurtPrice = yurt.discount ? yurt.price - yurt.discount : yurt.price;
 
   const newBooking = {
     ...bookingData,
@@ -133,7 +141,8 @@ export async function createBooking(bookingData, formData) {
       : null,
     observations: (formData.get("observations") || "").slice(0, 1000),
     extrasPrice: 0,
-    totalPrice: bookingData.yurtPrice,
+    yurtPrice,
+    totalPrice: yurtPrice,
     isPaid: false,
     hasBreakfast: false,
     status: "unconfirmed",

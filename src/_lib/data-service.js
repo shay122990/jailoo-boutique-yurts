@@ -40,7 +40,7 @@ export async function getYurtById(id) {
 export async function getYurtPrice(id) {
   const { data, error } = await supabase
     .from("yurts")
-    .select("regularPrice, discount")
+    .select("price, discount")
     .eq("id", id)
     .single();
 
