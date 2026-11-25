@@ -124,14 +124,16 @@ export async function createBooking(bookingData, formData) {
   if (!session?.user?.guestId) {
     throw new Error("You must be logged in");
   }
+  // 1.get yurt price from supabase and calculate total
   const yurt = await getYurtPrice(bookingData.yurtId);
 
   if (!yurt) {
     throw new Error("Yurt not found");
   }
-
   const yurtPrice = yurt.discount ? yurt.price - yurt.discount : yurt.price;
+  const totalPrice = yurtPrice * bookingData.numNights;
 
+  // create the pending booking in supabase
   const newBooking = {
     ...bookingData,
     guestId: session.user.guestId,
@@ -140,15 +142,15 @@ export async function createBooking(bookingData, formData) {
       ? Number(formData.get("experienceId"))
       : null,
     observations: (formData.get("observations") || "").slice(0, 1000),
-    extrasPrice: 0,
     yurtPrice,
-    totalPrice: yurtPrice,
+    totalPrice,
+    extrasPrice: 0,
     isPaid: false,
     hasBreakfast: false,
     status: "unconfirmed",
   };
 
-  const { error } = await supabaseAdmin
+  const { data: booking, error } = await supabaseAdmin
     .from("bookings")
     .insert([newBooking])
     .select()
@@ -159,9 +161,46 @@ export async function createBooking(bookingData, formData) {
     throw new Error("Booking could not be created");
   }
 
+  // stripe checkout sesh
+  const checkoutSession = await stripe.checkout.sessions.create({
+    mode: "payment",
+
+    line_items: [
+      {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: "Jailoo Yurt Reservation",
+          },
+          unit_amount: Math.round(totalPrice * 100),
+        },
+        quantity: 1,
+      },
+    ],
+
+    metadata: {
+      bookingId: String(booking.id),
+    },
+    // redirect on success or error
+    success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/yurts/confirmation?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/yurts`,
+  });
+
+  // save the stripe session id to supabase
+  const { error: updateError } = await supabaseAdmin
+    .from("bookings")
+    .update({ stripeSessionId: checkoutSession.id })
+    .eq("id", booking.id);
+
+  if (updateError) {
+    console.error("Stripe session update error:", updateError);
+    throw new Error("Could not update booking with Stripe session");
+  }
+
   revalidatePath(`/yurts/${bookingData.yurtId}`);
 
-  redirect("/yurts/confirmation");
+  // redirect user to stripe
+  redirect(checkoutSession.url);
 }
 
 export async function sendContactEnquiry(prevState, formData) {
