@@ -22,6 +22,7 @@ function ReservationCard({ booking, onDelete }) {
     created_at,
     yurts: { name, image },
     experiences,
+    isPaid,
   } = booking;
 
   const pastBooking =
@@ -78,6 +79,17 @@ function ReservationCard({ booking, onDelete }) {
           <p className="w-full text-xs text-plum/50 sm:ml-auto sm:w-auto sm:text-right">
             Booked {format(new Date(created_at), "EEE, MMM dd yyyy, p")}
           </p>
+          {isPaid ? (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1 text-xs font-medium text-green-700">
+              <span className="h-1.5 w-1.5 rounded-full bg-green-600" />
+              Paid
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+              Payment pending
+            </span>
+          )}
         </div>
       </div>
 
