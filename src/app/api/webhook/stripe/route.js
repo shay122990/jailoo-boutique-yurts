@@ -97,6 +97,19 @@ export async function POST(request) {
       return NextResponse.json({ received: true });
     }
 
+    if (event.type === "payment_intent.payment_failed") {
+      const paymentIntent = event.data.object;
+      const bookingId = paymentIntent.metadata?.bookingId;
+
+      console.log("Payment attempt failed:", {
+        bookingId,
+        reason: paymentIntent.last_payment_error?.message,
+      });
+
+      // Do not cancel the booking here.
+      // The customer may retry payment through Checkout.
+    }
+
     // update booking in supabase
     const { error: updateError } = await supabaseAdmin
       .from("bookings")

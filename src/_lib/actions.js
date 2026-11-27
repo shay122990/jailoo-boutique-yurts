@@ -181,9 +181,15 @@ export async function createBooking(bookingData, formData) {
     metadata: {
       bookingId: String(booking.id),
     },
+
+    payment_intent_data: {
+      metadata: {
+        bookingId: String(booking.id),
+      },
+    },
     // redirect on success or error
     success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/yurts/confirmation?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/yurts`,
+    cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/yurts/payment-failed`,
   });
 
   // save the stripe session id to supabase

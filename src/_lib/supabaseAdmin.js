@@ -1,3 +1,4 @@
+// needed to bypass RLS
 import "server-only";
 import { createClient } from "@supabase/supabase-js";
 
